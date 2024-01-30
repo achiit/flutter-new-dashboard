@@ -339,7 +339,7 @@ class _SignInPageState extends State<SignInPage> {
       "amount": "0.0002"
     };
 
-    try {
+    try { 
       final response = await http.post(Uri.parse(url), body: body);
 
       if (response.statusCode == 200) {
