@@ -14,18 +14,18 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   bool _isLoading = false;
-  String walletid="";
+  String walletid = "";
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Stack(
       children: [
         Scaffold(
           appBar: AppBar(
             actions: [
               Consumer<MetaMaskProvider>(
                 builder: (context, provider, child) {
-                  walletid=provider.currentAddress;
                   if (provider.isConnected && provider.isInOperatingChain) {
+                    walletid = provider.currentAddress;
                     return Padding(
                       padding: const EdgeInsets.only(right: 16.0),
                       child: PopupMenuButton<String>(
@@ -94,8 +94,8 @@ class _SignInPageState extends State<SignInPage> {
                         },
                         child: Text("Connect with your wallet"),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Colors.black,
+                          backgroundColor: Colors.white,
+                          // onPrimary: Colors.black,
                         ),
                       ),
                     );
@@ -166,7 +166,15 @@ class _SignInPageState extends State<SignInPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               PlansBox(
-                                onpressed: () => _makePostRequest(context),
+                                onpressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('$walletid'),
+                                      duration: Duration(seconds: 3),
+                                    ),
+                                  );
+                                  _makePostRequest(context);
+                                },
                                 benefit1: 'Per Call Cost = 0.00043 Eth',
                                 benefit2: 'Good Support',
                                 benefit3: '',
@@ -227,7 +235,7 @@ class _SignInPageState extends State<SignInPage> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              'Cust2merAI',
+                              'Cust2merAI $walletid',
                               style: TextStyle(
                                   fontSize: 35.0,
                                   color: Colors.blue,
@@ -246,7 +254,15 @@ class _SignInPageState extends State<SignInPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               PlansBox(
-                                onpressed: () => _makePostRequest(context),
+                                onpressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('$walletid'),
+                                      duration: Duration(seconds: 3),
+                                    ),
+                                  );
+                                },
+                                /*  => _makePostRequest(context), */
                                 walletid: Provider.of<MetaMaskProvider>(context,
                                         listen: false)
                                     .currentAddress,
@@ -339,7 +355,7 @@ class _SignInPageState extends State<SignInPage> {
       "amount": "0.0002"
     };
 
-    try { 
+    try {
       final response = await http.post(Uri.parse(url), body: body);
 
       if (response.statusCode == 200) {
