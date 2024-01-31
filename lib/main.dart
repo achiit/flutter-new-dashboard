@@ -4,6 +4,7 @@ import 'package:admin/data/apiService.dart';
 import 'package:admin/models/customerModel.dart';
 import 'package:admin/provider/provider_web3.dart';
 import 'package:admin/screens/auth/signin.dart';
+import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/viewmodel/percentage.dart';
 import 'package:admin/viewmodel/solved_status_provider.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
             create: (context) => MetaMaskProvider(),
           ),
         ],
-        child:/*  MainScreen() */SignInPage(),
+        child: /* MainScreen() */ SignInPage() /* DashboardScreen() */,
       ),
     );
   }

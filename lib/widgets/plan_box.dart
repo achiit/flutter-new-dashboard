@@ -7,14 +7,14 @@ import 'package:http/http.dart' as http;
 class PlansBox extends StatefulWidget {
   final String text;
   final Widget field;
-  final String? walletid;
+
   final String benefit1;
   final String benefit2;
   void Function()? onpressed;
   final String benefit3;
 
   PlansBox({
-    this.walletid,
+   
     required this.onpressed,
     required this.benefit1,
     required this.benefit2,
@@ -70,7 +70,7 @@ class _PlansBoxState extends State<PlansBox> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text("${widget.walletid}"),
+                  
                     ElevatedButton(
                       onPressed:widget.onpressed,
                          /*  _isLoading ? null : () => _makePostRequest(context) */

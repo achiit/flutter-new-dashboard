@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: /* DashboardScreen() */ LandingPage(),
+              child: DashboardScreen() /* LandingPage() */,
             ),
           ],
         ),

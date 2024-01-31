@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:admin/screens/dashboard/dashboard_screen.dart';
+import 'package:admin/screens/main/main_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:admin/widgets/plan_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:admin/provider/provider_web3.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -142,7 +145,7 @@ class _SignInPageState extends State<SignInPage> {
                                         right: 50,
                                       ),
                                       child: Text(
-                                        'Welcome to our landing page! This is where you can showcase your content and attract visitors. You can customize this layout to suit your needs.Welcome to our landing page! This is where you can showcase your content and attract visitors. You can customize this layout to suit your needs.Welcome to our landing page! This is where you can showcase your content and attract visitors. You can customize this layout to suit your needs.',
+                                        'Cust2merAI revolutionizes customer care with AI and Web3 tech, offering prompt, AI-driven solutions. By integrating advanced AI, we eliminate wait times for human agents. Embracing Web3\'s decentralization ensures data security through blockchain. Issues are categorized into High, Medium, and Low priorities for efficient resolution. Experience promptness and accuracy in customer support at Cust2merAI. Join us for a revolutionary approach to satisfaction-driven care.',
                                         style: TextStyle(fontSize: 18.0),
                                       ),
                                     ),
@@ -245,7 +248,7 @@ class _SignInPageState extends State<SignInPage> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              'Welcome to our landing page! This is where you can showcase your content and attract visitors. You can customize this layout to suit your needs.',
+                              'Cust2merAI revolutionizes customer care with AI and Web3 tech, offering prompt, AI-driven solutions. By integrating advanced AI, we eliminate wait times for human agents. Embracing Web3\'s decentralization ensures data security through blockchain. Issues are categorized into High, Medium, and Low priorities for efficient resolution. Experience promptness and accuracy in customer support at Cust2merAI. Join us for a revolutionary approach to satisfaction-driven care.',
                               style: TextStyle(fontSize: 18.0),
                             ),
                           ),
@@ -263,9 +266,7 @@ class _SignInPageState extends State<SignInPage> {
                                   );
                                 },
                                 /*  => _makePostRequest(context), */
-                                walletid: Provider.of<MetaMaskProvider>(context,
-                                        listen: false)
-                                    .currentAddress,
+
                                 benefit1: 'Per Call Cost = 0.00043 Eth',
                                 benefit2: 'Good Support',
                                 benefit3: '',
@@ -342,13 +343,21 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  Future<void> _launchURL() async {
+    const String url = 'https://cust2mer-ai.vercel.app/';
+    if (await canLaunchUrl(Uri.parse("https://cust2mer-ai.vercel.app/"))) {
+      await launchUrl(Uri.parse("https://cust2mer-ai.vercel.app/"));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   Future<void> _makePostRequest(BuildContext context) async {
     setState(() {
       _isLoading = true;
     });
 
-    final String url =
-        'https://6bae-183-82-29-170.ngrok-free.app/initiate-transaction';
+    final String url = 'https://cust2merai.onrender.com/initiate-transaction';
 
     final Map<String, dynamic> body = {
       "walletAddress": "${walletid}",
@@ -375,6 +384,25 @@ class _SignInPageState extends State<SignInPage> {
                       Navigator.of(context).pop();
                     },
                     child: Text('OK'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (canLaunchUrl(
+                              Uri.parse("https://cust2mer-ai.vercel.app/")) !=
+                          null) {
+                        _launchURL();
+                      } else {
+                        throw 'Could not launch https://cust2mer-ai.vercel.app/';
+                      }
+                      // Navigator.pushAndRemoveUntil(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (BuildContext context) => DashboardScreen(),
+                      //   ),
+                      //   (route) => false,
+                      // );
+                    },
+                    child: Text('Go to your dashboard'),
                   ),
                 ],
               );
